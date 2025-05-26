@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Máscaras Dinâmicas</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  <style>
+    .error { color: red; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h2>Documento com Máscaras</h2>
+  <form id="doc-form">
+    <label>Tipo de Documento:
+      <select id="tipo">
+        <option value="cpf">CPF</option>
+        <option value="cnpj">CNPJ</option>
+        <option value="rg">RG</option>
+      </select>
+    </label><br><br>
+
+    <label>Número:
+      <input type="text" id="numero">
+      <div class="error" id="erro-doc"></div>
+    </label><br><br>
+
+    <button type="submit">Validar</button>
+  </form>
+
+  <script>
+    function aplicarMascara(tipo) {
+      const $input = $('#numero');
+      $input.unmask();
+      if (tipo === 'cpf') {
+        $input.mask('000.000.000-00');
+      } else if (tipo === 'cnpj') {
+        $input.mask('00.000.000/0000-00');
+      } else if (tipo === 'rg') {
+        $input.mask('00.000.000-0');
+      }
+    }
+
+    $('#tipo').on('change', function () {
+      aplicarMascara($(this).val());
+    });
+
+    aplicarMascara($('#tipo').val());
+
+    $('#doc-form').on('submit', function (e) {
+      e.preventDefault();
+      const tipo = $('#tipo').val();
+      const numero = $('#numero').val().replace(/\D/g, '');
+      let erro = '';
+
+      if (tipo === 'cpf' && numero.length !== 11) {
+        erro = 'CPF inválido (deve ter 11 dígitos).';
+      } else if (tipo === 'cnpj' && numero.length !== 14) {
+        erro = 'CNPJ inválido (deve ter 14 dígitos).';
+      } else if (tipo === 'rg' && numero.length < 7) {
+        erro = 'RG inválido (mínimo 7 dígitos).';
+      }
+
+      $('#erro-doc').text(erro);
+      if (!erro) {
+        alert('Documento válido!');
+      }
+    });
+  </script>
+</body>
+</html>
