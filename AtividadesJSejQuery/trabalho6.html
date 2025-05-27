@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Filtro de Lista</title>
+</head>
+<body>
+  <h2>Busca em Tempo Real</h2>
+  <input type="text" id="busca" placeholder="Buscar nome..."><br><br>
+
+  <ul id="lista">
+    <li>Henrique Vieira</li>
+    <li>João Silva</li>
+    <li>Maria Oliveira</li>
+    <li>Pedro Costa</li>
+    <li>Lucas Lima</li>
+    <li>Ana Paula Vieira</li>
+    <li>Bruno Souza</li>
+    <li>Fernanda Lima</li>
+    <li>Ricardo Nunes</li>
+    <li>Juliana Alves</li>
+  </ul>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $('#busca').on('keyup', function () {
+      const termo = $(this).val().toLowerCase();
+      $('#lista li').each(function () {
+        const textoOriginal = $(this).text();
+        const texto = textoOriginal.toLowerCase();
+
+        if (termo && texto.includes(termo)) {
+          const regex = new RegExp(`(${termo})`, 'gi');
+          const destaque = textoOriginal.replace(regex, '<mark>$1</mark>');
+          $(this).html(destaque).show();
+        } else if (!termo) {
+          $(this).html(textoOriginal).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
