@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário com PHP</title>
+</head>
+<body>
+    <a href="listar.php">Lista de Alunos</a>
+
+    <form action="processa.php" method="post" class="form-control">
+    <!-- Início do formulário HTML. 
+     O atributo "action" indica que os dados serão enviados para o arquivo "processa.php".
+     O atributo "method=post" indica que os dados serão enviados via POST (não aparecem na URL). -->
+
+        <label for="nome">Nome:</label>
+        <!-- Rótulo para o campo de nome. O atributo "for" associa o rótulo ao campo de entrada com id="nome" -->
+        <input type="text" id="nome" name="nome" class="form-control" required>
+        <!-- Campo de entrada do tipo texto. 
+             id="nome" é usado para associação com o label.
+             name="nome" é o nome da variável que será enviada ao PHP.
+             required indica que o campo é obrigatório. -->
+
+        <br><br>
+        <!-- Quebra de linha dupla para espaçamento entre os campos -->
+
+        <label for="email">E-mail:</label>
+        <!-- Rótulo para o campo de e-mail -->
+        <input type="email" id="email" name="email" class="form-control" required>
+        <!-- Campo de entrada do tipo e-mail.
+            O navegador valida se o valor inserido é um e-mail válido.
+            name="email" será o nome da variável enviada ao PHP. -->
+            
+        <label for="matricula">Matricula:</label>
+        <input type="text" id="matricula" name="matricula" class="form-control" required>
+        
+        <label for="curso">Curso:</label>
+        <input type="text" id="curso" name="curso" class="form-control" required>
+
+        <br><br>
+        <input class="btn btn-primary" type="submit" value="Enviar">
+        <!-- Botão para enviar o formulário. Ao clicar, os dados serão enviados para "processa.php". -->
+
+    </form>
+</body>
+</html>
